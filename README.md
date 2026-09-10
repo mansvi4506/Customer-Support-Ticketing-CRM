@@ -1,4 +1,4 @@
-# SupportDesk CRM — Datastraw Assessment
+# SupportDesk CRM 
 
 A full-stack customer support ticketing CRM built with **Python + FastAPI + SQLite + HTML/CSS/Vanilla JavaScript**.
 
