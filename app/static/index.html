@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SupportDesk — Support CRM</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            color: #111827;
+            background: #ffffff;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            height: 72px;
+            border-bottom: 1px solid #e5e7eb;
+            background: rgba(255, 255, 255, 0.96);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-inner {
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 20px;
+            font-weight: 750;
+            letter-spacing: -0.4px;
+        }
+
+        .logo-icon {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 9px;
+
+            background: #111827;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+
+            color: #6b7280;
+
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #111827;
+        }
+
+        .nav-button {
+            padding: 10px 17px;
+
+            border-radius: 8px;
+
+            background: #111827;
+            color: white !important;
+
+            transition: 0.2s ease;
+        }
+
+        .nav-button:hover {
+            background: #374151;
+        }
+
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            padding: 88px 0 72px;
+
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #f3f4f6 0%,
+                    #ffffff 52%
+                );
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 13px;
+
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
+
+            background: white;
+            color: #4b5563;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+        }
+
+        .hero h1 {
+            max-width: 850px;
+
+            margin: 0 auto;
+
+            font-size: clamp(42px, 6vw, 72px);
+
+            line-height: 1.04;
+
+            letter-spacing: -3px;
+
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: #6b7280;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin: 24px auto 0;
+
+            font-size: 18px;
+
+            color: #6b7280;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+
+            gap: 12px;
+
+            margin-top: 32px;
+
+            flex-wrap: wrap;
+        }
+
+        .primary-button,
+        .secondary-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 13px 21px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+            font-weight: 650;
+
+            transition: 0.2s ease;
+        }
+
+        .primary-button {
+            background: #111827;
+            color: white;
+        }
+
+        .primary-button:hover {
+            background: #374151;
+            transform: translateY(-1px);
+        }
+
+        .secondary-button {
+            border: 1px solid #d1d5db;
+
+            background: white;
+
+            color: #111827;
+        }
+
+        .secondary-button:hover {
+            background: #f9fafb;
+        }
+
+
+        /* =========================
+           DASHBOARD PREVIEW
+        ========================== */
+
+        .preview-section {
+            padding: 20px 0 90px;
+        }
+
+        .dashboard-preview {
+            max-width: 1000px;
+
+            margin: 0 auto;
+
+            border: 1px solid #dfe3e8;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            background: white;
+
+            box-shadow:
+                0 25px 60px rgba(17, 24, 39, 0.10),
+                0 5px 15px rgba(17, 24, 39, 0.05);
+        }
+
+        .browser-bar {
+            height: 42px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            background: #f9fafb;
+
+            display: flex;
+            align-items: center;
+
+            gap: 6px;
+
+            padding: 0 15px;
+        }
+
+        .browser-dot {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #d1d5db;
+        }
+
+        .preview-content {
+            display: grid;
+
+            grid-template-columns: 180px 1fr;
+
+            min-height: 360px;
+        }
+
+        .preview-sidebar {
+            background: #111827;
+            color: white;
+
+            padding: 22px 15px;
+        }
+
+        .preview-brand {
+            font-weight: 700;
+
+            margin-bottom: 30px;
+
+            font-size: 14px;
+        }
+
+        .preview-menu {
+            padding: 9px 10px;
+
+            border-radius: 6px;
+
+            margin-bottom: 5px;
+
+            color: #d1d5db;
+
+            font-size: 12px;
+        }
+
+        .preview-menu.active {
+            background: #374151;
+            color: white;
+        }
+
+        .preview-main {
+            padding: 25px;
+
+            background: #f9fafb;
+        }
+
+        .preview-title {
+            font-size: 20px;
+
+            font-weight: 700;
+
+            margin-bottom: 18px;
+        }
+
+        .preview-stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 20px;
+        }
+
+        .preview-card {
+            padding: 15px;
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 8px;
+        }
+
+        .preview-card small {
+            display: block;
+
+            color: #6b7280;
+
+            font-size: 10px;
+
+            margin-bottom: 5px;
+        }
+
+        .preview-card strong {
+            font-size: 20px;
+        }
+
+        .preview-table {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 8px;
+
+            overflow: hidden;
+        }
+
+        .table-row {
+            display: grid;
+
+            grid-template-columns:
+                100px 1fr 100px 90px;
+
+            gap: 10px;
+
+            padding: 12px 15px;
+
+            border-bottom: 1px solid #f0f0f0;
+
+            font-size: 11px;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-header {
+            background: #f9fafb;
+
+            color: #6b7280;
+
+            font-weight: 600;
+        }
+
+        .status {
+            display: inline-block;
+
+            padding: 3px 7px;
+
+            border-radius: 999px;
+
+            background: #f3f4f6;
+
+            font-size: 9px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           FEATURES
+        ========================== */
+
+        .features {
+            padding: 90px 0;
+
+            background: #f9fafb;
+
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .section-heading {
+            text-align: center;
+
+            max-width: 650px;
+
+            margin: 0 auto 45px;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+
+            letter-spacing: -1.5px;
+
+            line-height: 1.15;
+
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: #6b7280;
+
+            font-size: 16px;
+        }
+
+        .feature-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .feature-card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            padding: 25px;
+        }
+
+        .feature-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 9px;
+
+            background: #f3f4f6;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
+
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+
+            color: #6b7280;
+        }
+
+
+        /* =========================
+           HOW IT WORKS
+        ========================== */
+
+        .how-it-works {
+            padding: 90px 0;
+        }
+
+        .steps {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 30px;
+
+            max-width: 900px;
+
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 42px;
+            height: 42px;
+
+            margin: 0 auto 15px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+
+            font-size: 14px;
+        }
+
+        .step h3 {
+            font-size: 16px;
+
+            margin-bottom: 7px;
+        }
+
+        .step p {
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           CTA
+        ========================== */
+
+        .cta {
+            padding: 75px 0;
+
+            background: #111827;
+
+            color: white;
+
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 38px;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: #d1d5db;
+
+            margin-bottom: 25px;
+        }
+
+        .cta .primary-button {
+            background: white;
+
+            color: #111827;
+        }
+
+        .cta .primary-button:hover {
+            background: #f3f4f6;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: #111827;
+
+            color: #9ca3af;
+
+            border-top: 1px solid #374151;
+
+            padding: 25px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            font-size: 13px;
+        }
+
+        .footer-brand {
+            color: white;
+
+            font-weight: 650;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 800px) {
+
+            .nav-links a:not(.nav-button) {
+                display: none;
+            }
+
+            .hero {
+                padding: 65px 0 50px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .preview-content {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-sidebar {
+                display: none;
+            }
+
+            .feature-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .table-row {
+                grid-template-columns:
+                    80px 1fr 75px;
+            }
+
+            .table-row span:last-child {
+                display: none;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+
+                gap: 8px;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .container {
+                width:
+                    min(
+                        100% - 28px,
+                        1120px
+                    );
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-heading h2,
+            .cta h2 {
+                font-size: 30px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <header class="navbar">
+
+        <div class="container nav-inner">
+
+            <a
+                href="/"
+                class="logo"
+            >
+
+                <span class="logo-icon">
+                    S
+                </span>
+
+                <span>
+                    SupportDesk
+                </span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="#features">
+                    Features
+                </a>
+
+                <a href="#how-it-works">
+                    How it works
+                </a>
+
+                <a
+                    href="/workspace"
+                    class="nav-button"
+                >
+                    Open Workspace
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="container">
+
+                <div class="badge">
+
+                    <span class="badge-dot"></span>
+
+                    Simple Support CRM
+
+                </div>
+
+
+                <h1>
+
+                    Resolve customer issues
+
+                    <span>
+                        faster.
+                    </span>
+
+                </h1>
+
+
+                <p>
+
+                    A lightweight support CRM for creating,
+                    tracking, searching and managing customer
+                    support tickets from one simple workspace.
+
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <a
+                        href="/workspace"
+                        class="primary-button"
+                    >
+                        Open Support Workspace →
+                    </a>
+
+
+                    <a
+                        href="#features"
+                        class="secondary-button"
+                    >
+                        Explore Features
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             DASHBOARD PREVIEW
+        ========================== -->
+
+        <section class="preview-section">
+
+            <div class="container">
+
+                <div class="dashboard-preview">
+
+                    <div class="browser-bar">
+
+                        <span class="browser-dot"></span>
+                        <span class="browser-dot"></span>
+                        <span class="browser-dot"></span>
+
+                    </div>
+
+
+                    <div class="preview-content">
+
+                        <aside class="preview-sidebar">
+
+                            <div class="preview-brand">
+                                SupportDesk
+                            </div>
+
+                            <div class="preview-menu active">
+                                Tickets
+                            </div>
+
+                            <div class="preview-menu">
+                                Dashboard
+                            </div>
+
+                        </aside>
+
+
+                        <div class="preview-main">
+
+                            <div class="preview-title">
+                                Support Tickets
+                            </div>
+
+
+                            <div class="preview-stats">
+
+                                <div class="preview-card">
+
+                                    <small>
+                                        Total Tickets
+                                    </small>
+
+                                    <strong>
+                                        24
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="preview-card">
+
+                                    <small>
+                                        Open
+                                    </small>
+
+                                    <strong>
+                                        12
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="preview-card">
+
+                                    <small>
+                                        In Progress
+                                    </small>
+
+                                    <strong>
+                                        7
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="preview-table">
+
+                                <div class="table-row table-header">
+
+                                    <span>
+                                        ID
+                                    </span>
+
+                                    <span>
+                                        Customer / Subject
+                                    </span>
+
+                                    <span>
+                                        Status
+                                    </span>
+
+                                    <span>
+                                        Date
+                                    </span>
+
+                                </div>
+
+
+                                <div class="table-row">
+
+                                    <span>
+                                        TKT-024
+                                    </span>
+
+                                    <span>
+                                        Login issue
+                                    </span>
+
+                                    <span>
+                                        <small class="status">
+                                            Open
+                                        </small>
+                                    </span>
+
+                                    <span>
+                                        Today
+                                    </span>
+
+                                </div>
+
+
+                                <div class="table-row">
+
+                                    <span>
+                                        TKT-023
+                                    </span>
+
+                                    <span>
+                                        Payment problem
+                                    </span>
+
+                                    <span>
+                                        <small class="status">
+                                            In Progress
+                                        </small>
+                                    </span>
+
+                                    <span>
+                                        Today
+                                    </span>
+
+                                </div>
+
+
+                                <div class="table-row">
+
+                                    <span>
+                                        TKT-022
+                                    </span>
+
+                                    <span>
+                                        Account question
+                                    </span>
+
+                                    <span>
+                                        <small class="status">
+                                            Closed
+                                        </small>
+                                    </span>
+
+                                    <span>
+                                        Yesterday
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FEATURES
+        ========================== -->
+
+        <section
+            class="features"
+            id="features"
+        >
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Everything you need to manage support.
+                    </h2>
+
+                    <p>
+                        Keep customer conversations organized
+                        without unnecessary complexity.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-grid">
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            ＋
+                        </div>
+
+                        <h3>
+                            Create Tickets
+                        </h3>
+
+                        <p>
+                            Create customer support tickets with
+                            customer details, subject and issue
+                            description. Ticket IDs and timestamps
+                            are generated automatically.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            ◉
+                        </div>
+
+                        <h3>
+                            Track Status
+                        </h3>
+
+                        <p>
+                            Move tickets through Open,
+                            In Progress and Closed states so
+                            your team always knows what needs
+                            attention.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            ⌕
+                        </div>
+
+                        <h3>
+                            Search & Filter
+                        </h3>
+
+                        <p>
+                            Quickly find tickets by customer
+                            name, email, ticket ID, subject or
+                            description using live search and
+                            status filters.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            ✓
+                        </div>
+
+                        <h3>
+                            Ticket Details
+                        </h3>
+
+                        <p>
+                            Open any ticket to review its
+                            complete information and update
+                            its current status.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            ≡
+                        </div>
+
+                        <h3>
+                            Internal Notes
+                        </h3>
+
+                        <p>
+                            Add notes and comments to tickets
+                            so important support context stays
+                            attached to the customer issue.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            ⚡
+                        </div>
+
+                        <h3>
+                            Simple & Responsive
+                        </h3>
+
+                        <p>
+                            A clean interface designed to work
+                            across desktop and smaller screens
+                            without a complicated setup.
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             HOW IT WORKS
+        ========================== -->
+
+        <section
+            class="how-it-works"
+            id="how-it-works"
+        >
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <h2>
+                        A simple workflow.
+                    </h2>
+
+                    <p>
+                        From customer issue to resolution
+                        in a few steps.
+                    </p>
+
+                </div>
+
+
+                <div class="steps">
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            1
+                        </div>
+
+                        <h3>
+                            Create a ticket
+                        </h3>
+
+                        <p>
+                            Add the customer's information
+                            and describe the issue they
+                            need help with.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            2
+                        </div>
+
+                        <h3>
+                            Work on the issue
+                        </h3>
+
+                        <p>
+                            Search, filter and update the
+                            ticket while keeping useful
+                            notes for your team.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            3
+                        </div>
+
+                        <h3>
+                            Close the ticket
+                        </h3>
+
+                        <p>
+                            Once the customer's issue is
+                            resolved, mark the ticket as
+                            Closed.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CTA
+        ========================== -->
+
+        <section class="cta">
+
+            <div class="container">
+
+                <h2>
+                    Ready to manage your tickets?
+                </h2>
+
+                <p>
+                    Open the SupportDesk workspace and
+                    start managing customer issues.
+                </p>
+
+                <a
+                    href="/workspace"
+                    class="primary-button"
+                >
+                    Open Support Workspace →
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="container footer-inner">
+
+            <span class="footer-brand">
+                SupportDesk
+            </span>
+
+            <span>
+                Support CRM System
+            </span>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

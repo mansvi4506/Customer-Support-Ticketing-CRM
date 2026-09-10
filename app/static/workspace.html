@@ -1,0 +1,545 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="description"
+    content="SupportDesk CRM - customer support ticket management"
+  />
+
+  <title>SupportDesk CRM</title>
+
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+      <!-- CLICKABLE BRAND -->
+      <a href="/" class="brand">
+
+        <div class="brand-mark">
+          S
+        </div>
+
+        <div>
+          <strong>SupportDesk</strong>
+          <span>CRM Workspace</span>
+        </div>
+
+      </a>
+
+
+      <!-- BACK TO LANDING PAGE -->
+
+      <a
+        href="/"
+        class="back-home"
+      >
+        ← Back to Home
+      </a>
+
+
+      <!-- SIDEBAR NAVIGATION -->
+
+      <nav>
+
+        <a
+          class="nav-link active"
+          href="#tickets"
+          id="ticketsNav"
+        >
+          <span>▣</span>
+          Tickets
+        </a>
+
+
+        <a
+          class="nav-link"
+          href="#stats"
+          id="dashboardNav"
+        >
+          <span>⌂</span>
+          Dashboard
+        </a>
+
+      </nav>
+
+
+      <!-- SIDEBAR FOOTER -->
+
+      <div class="sidebar-footer">
+
+        <div class="online-dot"></div>
+
+        <div>
+          <strong>System Online</strong>
+          <span>Support operations</span>
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN WORKSPACE
+    ========================== -->
+
+    <main class="main">
+
+      <!-- TOP BAR -->
+
+      <header class="topbar">
+
+        <div>
+
+          <p class="eyebrow">
+            CUSTOMER SUPPORT
+          </p>
+
+          <h1>
+            Ticket workspace
+          </h1>
+
+        </div>
+
+
+        <!-- MAIN CREATE BUTTON -->
+
+        <button
+          class="primary-btn"
+          id="newTicketBtn"
+        >
+          ＋ New ticket
+        </button>
+
+      </header>
+
+
+      <!-- =========================
+           STATISTICS
+      ========================== -->
+
+      <section
+        class="stats-grid"
+        id="stats"
+      >
+
+        <div class="stat-card">
+
+          <span>Total tickets</span>
+
+          <strong id="statTotal">
+            0
+          </strong>
+
+          <small>
+            All support requests
+          </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span>Open</span>
+
+          <strong id="statOpen">
+            0
+          </strong>
+
+          <small>
+            Needs attention
+          </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span>In progress</span>
+
+          <strong id="statProgress">
+            0
+          </strong>
+
+          <small>
+            Being handled
+          </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span>Closed</span>
+
+          <strong id="statClosed">
+            0
+          </strong>
+
+          <small>
+            Resolved tickets
+          </small>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           TICKETS
+      ========================== -->
+
+      <section
+        class="panel"
+        id="tickets"
+      >
+
+        <div class="panel-heading">
+
+          <div>
+
+            <h2>
+              All tickets
+            </h2>
+
+            <p>
+              Search and manage customer requests.
+            </p>
+
+          </div>
+
+          <div
+            class="ticket-count"
+            id="ticketCount"
+          >
+            0 tickets
+          </div>
+
+        </div>
+
+
+        <!-- SEARCH + FILTER -->
+
+        <div class="toolbar">
+
+          <div class="search-wrap">
+
+            <span>
+              ⌕
+            </span>
+
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search ID, customer, email, subject or description..."
+            />
+
+          </div>
+
+
+          <select
+            id="statusFilter"
+            aria-label="Filter tickets by status"
+          >
+
+            <option value="">
+              All statuses
+            </option>
+
+            <option value="Open">
+              Open
+            </option>
+
+            <option value="In Progress">
+              In Progress
+            </option>
+
+            <option value="Closed">
+              Closed
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- LOADING / EMPTY STATE -->
+
+        <div
+          id="tableState"
+          class="loading-state"
+        >
+          Loading tickets…
+        </div>
+
+
+        <!-- TICKET TABLE -->
+
+        <div
+          class="table-wrap hidden"
+          id="tableWrap"
+        >
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Ticket
+                </th>
+
+                <th>
+                  Customer
+                </th>
+
+                <th>
+                  Issue
+                </th>
+
+                <th>
+                  Status
+                </th>
+
+                <th>
+                  Created
+                </th>
+
+                <th></th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody id="ticketRows"></tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- =========================
+       CREATE TICKET MODAL
+  ========================== -->
+
+  <div
+    class="modal hidden"
+    id="createModal"
+  >
+
+    <div
+      class="modal-backdrop"
+      data-close="createModal"
+    ></div>
+
+
+    <div class="modal-card">
+
+      <div class="modal-header">
+
+        <div>
+
+          <p class="eyebrow">
+            NEW REQUEST
+          </p>
+
+          <h2>
+            Create ticket
+          </h2>
+
+        </div>
+
+
+        <button
+          class="icon-btn"
+          data-close="createModal"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="createForm">
+
+        <div class="form-grid">
+
+          <label>
+
+            Customer name
+
+            <input
+              name="customer_name"
+              required
+              minlength="2"
+              maxlength="120"
+              placeholder="e.g. Aarav Mehta"
+            />
+
+          </label>
+
+
+          <label>
+
+            Customer email
+
+            <input
+              name="customer_email"
+              type="email"
+              required
+              placeholder="customer@example.com"
+            />
+
+          </label>
+
+        </div>
+
+
+        <label>
+
+          Issue title
+
+          <input
+            name="subject"
+            required
+            minlength="3"
+            maxlength="200"
+            placeholder="What does the customer need help with?"
+          />
+
+        </label>
+
+
+        <label>
+
+          Description
+
+          <textarea
+            name="description"
+            required
+            minlength="5"
+            maxlength="5000"
+            rows="6"
+            placeholder="Describe the issue and relevant context…"
+          ></textarea>
+
+        </label>
+
+
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="secondary-btn"
+            data-close="createModal"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="submit"
+            class="primary-btn"
+          >
+            Create ticket
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       TICKET DETAIL MODAL
+  ========================== -->
+
+  <div
+    class="modal hidden"
+    id="detailModal"
+  >
+
+    <div
+      class="modal-backdrop"
+      data-close="detailModal"
+    ></div>
+
+
+    <div class="modal-card detail-card">
+
+      <div class="modal-header">
+
+        <div>
+
+          <p
+            class="eyebrow"
+            id="detailId"
+          >
+            TKT-000
+          </p>
+
+          <h2 id="detailSubject">
+            Ticket
+          </h2>
+
+        </div>
+
+
+        <button
+          class="icon-btn"
+          data-close="detailModal"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div id="detailContent"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       TOAST
+  ========================== -->
+
+  <div
+    id="toast"
+    class="toast"
+  ></div>
+
+
+  <!-- JAVASCRIPT -->
+
+  <script src="/static/app.js"></script>
+
+</body>
+</html>
+```
