@@ -157,16 +157,41 @@ function renderTickets(tickets) {
 ========================= */
 
 function updateStats(tickets) {
+  const open = tickets.filter(t => t.status === "Open").length;
+  const progress = tickets.filter(t => t.status === "In Progress").length;
+  const closed = tickets.filter(t => t.status === "Closed").length;
+
   $("#statTotal").textContent = tickets.length;
 
-  $("#statOpen").textContent =
-    tickets.filter(t => t.status === "Open").length;
+  $("#statOpen").textContent = open;
+  $("#statProgress").textContent = progress;
+  $("#statClosed").textContent = closed;
 
-  $("#statProgress").textContent =
-    tickets.filter(t => t.status === "In Progress").length;
+  updateAnalytics({ total: tickets.length, open, progress, closed });
+}
 
-  $("#statClosed").textContent =
-    tickets.filter(t => t.status === "Closed").length;
+
+/* =========================
+   LIVE ANALYTICS
+========================= */
+
+function updateAnalytics({ total, open, progress, closed }) {
+  const chart = $("#ticketDistributionChart");
+
+  $("#analyticsTotal").textContent = total;
+  $("#analyticsOpen").textContent = open;
+  $("#analyticsProgress").textContent = progress;
+  $("#analyticsClosed").textContent = closed;
+
+  const openEnd = total ? (open / total) * 100 : 0;
+  const progressEnd = openEnd + (total ? (progress / total) * 100 : 0);
+
+  chart.style.setProperty("--open-end", `${openEnd}%`);
+  chart.style.setProperty("--progress-end", `${progressEnd}%`);
+  chart.setAttribute(
+    "aria-label",
+    `Ticket status distribution: ${open} open, ${progress} in progress, ${closed} closed`
+  );
 }
 
 

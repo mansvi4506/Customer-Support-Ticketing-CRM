@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,12 +11,53 @@
 
   <title>SupportDesk CRM</title>
 
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            display: ["Space Grotesk", "Inter", "sans-serif"]
+          },
+          colors: {
+            brand: {
+              50: "#eef2ff",
+              100: "#e0e7ff",
+              500: "#6366f1",
+              600: "#4f46e5",
+              700: "#4338ca"
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 
-<body>
+<body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
 
-  <div class="app-shell">
+  <div class="app-shell min-h-screen">
 
     <!-- =========================
          SIDEBAR
@@ -25,14 +65,15 @@
 
     <aside class="sidebar">
 
-      <!-- CLICKABLE BRAND -->
-      <a href="/" class="brand">
+      <!-- BRAND -->
+
+      <a href="/" class="brand group">
 
         <div class="brand-mark">
           S
         </div>
 
-        <div>
+        <div class="min-w-0">
           <strong>SupportDesk</strong>
           <span>CRM Workspace</span>
         </div>
@@ -46,21 +87,22 @@
         href="/"
         class="back-home"
       >
-        ← Back to Home
+        <span class="back-home-icon">←</span>
+        <span>Back to Home</span>
       </a>
 
 
       <!-- SIDEBAR NAVIGATION -->
 
-      <nav>
+      <nav class="workspace-nav">
 
         <a
           class="nav-link active"
           href="#tickets"
           id="ticketsNav"
         >
-          <span>▣</span>
-          Tickets
+          <span class="nav-icon">▣</span>
+          <span>Tickets</span>
         </a>
 
 
@@ -69,8 +111,8 @@
           href="#stats"
           id="dashboardNav"
         >
-          <span>⌂</span>
-          Dashboard
+          <span class="nav-icon">⌂</span>
+          <span>Dashboard</span>
         </a>
 
       </nav>
@@ -121,7 +163,8 @@
           class="primary-btn"
           id="newTicketBtn"
         >
-          ＋ New ticket
+          <span class="button-plus">＋</span>
+          <span>New ticket</span>
         </button>
 
       </header>
@@ -136,9 +179,15 @@
         id="stats"
       >
 
-        <div class="stat-card">
+        <div class="stat-card stat-total">
 
-          <span>Total tickets</span>
+          <div class="stat-top">
+            <span>Total tickets</span>
+
+            <div class="stat-icon">
+              ▣
+            </div>
+          </div>
 
           <strong id="statTotal">
             0
@@ -151,9 +200,15 @@
         </div>
 
 
-        <div class="stat-card">
+        <div class="stat-card stat-open">
 
-          <span>Open</span>
+          <div class="stat-top">
+            <span>Open</span>
+
+            <div class="stat-icon">
+              ○
+            </div>
+          </div>
 
           <strong id="statOpen">
             0
@@ -166,9 +221,15 @@
         </div>
 
 
-        <div class="stat-card">
+        <div class="stat-card stat-progress">
 
-          <span>In progress</span>
+          <div class="stat-top">
+            <span>In progress</span>
+
+            <div class="stat-icon">
+              ◌
+            </div>
+          </div>
 
           <strong id="statProgress">
             0
@@ -181,9 +242,15 @@
         </div>
 
 
-        <div class="stat-card">
+        <div class="stat-card stat-closed">
 
-          <span>Closed</span>
+          <div class="stat-top">
+            <span>Closed</span>
+
+            <div class="stat-icon">
+              ✓
+            </div>
+          </div>
 
           <strong id="statClosed">
             0
@@ -192,6 +259,73 @@
           <small>
             Resolved tickets
           </small>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           LIVE TICKET ANALYTICS
+      ========================== -->
+
+      <section
+        class="analytics-panel"
+        aria-labelledby="analyticsTitle"
+      >
+
+        <div class="analytics-copy">
+
+          <p class="analytics-kicker">
+            LIVE OVERVIEW
+          </p>
+
+          <h2 id="analyticsTitle">
+            Ticket distribution
+          </h2>
+
+          <p>
+            A real-time view of the current support workload.
+          </p>
+
+          <div class="analytics-legend" aria-label="Ticket status breakdown">
+
+            <div class="legend-item open">
+              <span class="legend-dot"></span>
+              <span>Open</span>
+              <strong id="analyticsOpen">0</strong>
+            </div>
+
+            <div class="legend-item progress">
+              <span class="legend-dot"></span>
+              <span>In progress</span>
+              <strong id="analyticsProgress">0</strong>
+            </div>
+
+            <div class="legend-item closed">
+              <span class="legend-dot"></span>
+              <span>Closed</span>
+              <strong id="analyticsClosed">0</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="analytics-chart-wrap">
+
+          <div
+            class="donut-chart"
+            id="ticketDistributionChart"
+            role="img"
+            aria-label="Ticket status distribution: 0 open, 0 in progress, 0 closed"
+          >
+            <div class="donut-centre">
+              <strong id="analyticsTotal">0</strong>
+              <span>Total tickets</span>
+            </div>
+          </div>
 
         </div>
 
@@ -211,13 +345,23 @@
 
           <div>
 
-            <h2>
-              All tickets
-            </h2>
+            <div class="panel-title-row">
 
-            <p>
-              Search and manage customer requests.
-            </p>
+              <div class="panel-heading-icon">
+                ▣
+              </div>
+
+              <div>
+                <h2>
+                  All tickets
+                </h2>
+
+                <p>
+                  Search and manage customer requests.
+                </p>
+              </div>
+
+            </div>
 
           </div>
 
@@ -237,7 +381,7 @@
 
           <div class="search-wrap">
 
-            <span>
+            <span class="search-icon">
               ⌕
             </span>
 
@@ -250,28 +394,36 @@
           </div>
 
 
-          <select
-            id="statusFilter"
-            aria-label="Filter tickets by status"
-          >
+          <div class="filter-wrap">
 
-            <option value="">
-              All statuses
-            </option>
+            <span class="filter-label">
+              Status
+            </span>
 
-            <option value="Open">
-              Open
-            </option>
+            <select
+              id="statusFilter"
+              aria-label="Filter tickets by status"
+            >
 
-            <option value="In Progress">
-              In Progress
-            </option>
+              <option value="">
+                All statuses
+              </option>
 
-            <option value="Closed">
-              Closed
-            </option>
+              <option value="Open">
+                Open
+              </option>
 
-          </select>
+              <option value="In Progress">
+                In Progress
+              </option>
+
+              <option value="Closed">
+                Closed
+              </option>
+
+            </select>
+
+          </div>
 
         </div>
 
@@ -282,7 +434,8 @@
           id="tableState"
           class="loading-state"
         >
-          Loading tickets…
+          <div class="loading-spinner"></div>
+          <span>Loading tickets…</span>
         </div>
 
 
@@ -354,11 +507,16 @@
     ></div>
 
 
-    <div class="modal-card">
+    <div class="modal-card create-modal-card">
 
       <div class="modal-header">
 
         <div>
+
+          <div class="modal-kicker">
+            <span class="modal-kicker-dot"></span>
+            NEW REQUEST
+          </div>
 
           <p class="eyebrow">
             NEW REQUEST
@@ -368,12 +526,17 @@
             Create ticket
           </h2>
 
+          <p class="modal-description">
+            Add the customer's information and describe the issue.
+          </p>
+
         </div>
 
 
         <button
           class="icon-btn"
           data-close="createModal"
+          aria-label="Close create ticket dialog"
         >
           ×
         </button>
@@ -495,16 +658,28 @@
 
         <div>
 
-          <p
-            class="eyebrow"
-            id="detailId"
-          >
-            TKT-000
-          </p>
+          <div class="ticket-detail-heading">
 
-          <h2 id="detailSubject">
-            Ticket
-          </h2>
+            <div class="ticket-detail-icon">
+              #
+            </div>
+
+            <div>
+
+              <p
+                class="eyebrow"
+                id="detailId"
+              >
+                TKT-000
+              </p>
+
+              <h2 id="detailSubject">
+                Ticket
+              </h2>
+
+            </div>
+
+          </div>
 
         </div>
 
@@ -512,6 +687,7 @@
         <button
           class="icon-btn"
           data-close="detailModal"
+          aria-label="Close ticket details"
         >
           ×
         </button>
@@ -542,4 +718,3 @@
 
 </body>
 </html>
-```
