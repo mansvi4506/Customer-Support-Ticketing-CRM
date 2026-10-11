@@ -159,5 +159,3 @@ For a persistent SQLite database, use a persistent volume mounted to `/app/data`
 3. **Vanilla JavaScript** avoids a frontend build pipeline, making the application easy to run and deploy within the 2–3 day assignment window.
 4. **Notes are stored separately** so ticket history can grow without modifying the main ticket record.
 5. The dashboard statistics are calculated from the ticket list to give support staff an immediate workload overview without adding unnecessary schema complexity.
-
-- **Live Application:** https://web-production-d3849.up.railway.app/
